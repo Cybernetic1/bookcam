@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="408.60127"
-     inkscape:cy="457.65145"
+     inkscape:zoom="1.2316035"
+     inkscape:cx="410.51895"
+     inkscape:cy="449.03927"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -385,6 +385,20 @@
            id="path2314-2" />
       </g>
     </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lstart-7"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4060-1"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
   </defs>
   <metadata
      id="metadata7">
@@ -394,7 +408,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -410,6 +424,13 @@
        x="142"
        y="319.36218" />
     <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-6"
+       width="34.358791"
+       height="28.021721"
+       x="339.14267"
+       y="703.7464" />
+    <rect
        style="fill:#ff0000;stroke:none"
        id="rect3058-5"
        width="38.152611"
@@ -424,7 +445,7 @@
        sodipodi:nodetypes="csssscc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Lstart)"
-       d="m 389.84024,581.86218 c -27,42 -107,45 -107,45"
+       d="m 378.47295,622.45966 c -33.4956,-27.82767 -95.63271,4.40252 -95.63271,4.40252"
        id="path5775-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
@@ -440,9 +461,9 @@
            x="443"
            y="721.36218" /></flowRegion><flowPara
          id="flowPara6066"
-         style="text-align:center;text-anchor:middle">camera</flowPara><flowPara
-         id="flowPara5285"
-         style="text-align:center;text-anchor:middle">positions</flowPara></flowRoot>    <path
+         style="text-align:center;text-anchor:middle">plastic</flowPara><flowPara
+         style="text-align:center;text-anchor:middle"
+         id="flowPara3229">slots</flowPara></flowRoot>    <path
        style="fill:#cdde87;stroke:none"
        d="m 425.80869,314.36218 -265.99999,0 c -8.033,0 -14.5,-6.467 -14.5,-14.5 l 0,-1 c 0,-8.033 6.467,-14.5 14.5,-14.5 l 265.99999,0 c -9.96936,0.7821 9.98127,29.38823 0,30 z"
        id="rect3125-5-1-8"
@@ -518,14 +539,18 @@
        transform="translate(-55,243)"><flowRegion
          id="flowRegion3208"><rect
            id="rect3210"
-           width="136"
-           height="46"
+           width="136.81195"
+           height="95.528923"
            x="334"
            y="513.36218" /></flowRegion><flowPara
          id="flowPara3212"
          style="text-align:center;text-anchor:middle">mid-point</flowPara><flowPara
          id="flowPara5057"
-         style="text-align:center;text-anchor:middle">of big book</flowPara></flowRoot>    <flowRoot
+         style="text-align:center;text-anchor:middle">of big book</flowPara><flowPara
+         style="text-align:center;text-anchor:middle"
+         id="flowPara3314">= 21cm / 2</flowPara><flowPara
+         style="text-align:center;text-anchor:middle"
+         id="flowPara3318">= 10.5cm</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot3180-5"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
@@ -554,20 +579,42 @@
            x="134"
            y="350.36218" /></flowRegion><flowPara
          id="flowPara5001">mid-point of small book</flowPara></flowRoot>    <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-9"
+       width="34.358791"
+       height="28.021721"
+       x="372.83148"
+       y="-447.89743"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <rect
        style="fill:#ff0000;stroke:none"
        id="rect3058-5-0-7"
        width="38.152611"
        height="12.4498"
-       x="364.28589"
-       y="-431.22491"
+       x="361.09021"
+       y="-440.01843"
        transform="matrix(0,1,-1,0,0,0)" />
+    <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-2"
+       width="34.358791"
+       height="28.021721"
+       x="474.74973"
+       y="416.04257" />
     <rect
        style="fill:#ff0000;stroke:none"
        id="rect3058-5-2"
        width="38.152611"
        height="12.4498"
-       x="463.92371"
+       x="463.11938"
        y="424.13727" />
+    <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-3"
+       width="34.358791"
+       height="28.021721"
+       x="433.65247"
+       y="495.02048" />
     <rect
        style="fill:#ff0000;stroke:none"
        id="rect3058-5-21"
@@ -576,12 +623,26 @@
        x="422.92371"
        y="503.13727" />
     <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-5"
+       width="34.358791"
+       height="28.021721"
+       x="405.50064"
+       y="556.55237" />
+    <rect
        style="fill:#ff0000;stroke:none"
        id="rect3058-5-5"
        width="38.152611"
        height="12.4498"
        x="393.92371"
        y="565.13727" />
+    <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138"
+       width="34.358791"
+       height="28.021721"
+       x="373.23904"
+       y="627.94916" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:6, 6;stroke-dashoffset:0"
        d="m 350,708.36218 133,-281"
@@ -600,6 +661,14 @@
            x="66"
            y="52.362183" /></flowRegion><flowPara
          id="flowPara5013">X</flowPara></flowRoot>    <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-9-93"
+       width="34.358791"
+       height="28.021721"
+       x="520.40594"
+       y="-157.18315"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <rect
        style="fill:#ff0000;stroke:none"
        id="rect3058-5-0-3"
        width="38.152611"
@@ -639,14 +708,24 @@
        transform="matrix(0,1,-1,0,622.81908,128.70593)"><flowRegion
          id="flowRegion3208-1"><rect
            id="rect3210-7"
-           width="136"
-           height="46"
+           width="139.2478"
+           height="75.230164"
            x="334"
            y="513.36218" /></flowRegion><flowPara
          id="flowPara3212-1"
          style="text-align:center;text-anchor:middle">mid-point</flowPara><flowPara
          id="flowPara5057-5"
-         style="text-align:center;text-anchor:middle">of big book</flowPara></flowRoot>    <rect
+         style="text-align:center;text-anchor:middle">of big book</flowPara><flowPara
+         style="text-align:center;text-anchor:middle"
+         id="flowPara3316">= 10.5cm</flowPara></flowRoot>    <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-9-8"
+       width="34.358791"
+       height="28.021721"
+       x="408.60284"
+       y="-368.32208"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <rect
        style="fill:#ff0000;stroke:none"
        id="rect3058-5-0-36"
        width="38.152611"
@@ -655,12 +734,28 @@
        y="-360.22491"
        transform="matrix(0,1,-1,0,0,0)" />
     <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-9-9"
+       width="34.358791"
+       height="28.021721"
+       x="446.00458"
+       y="-301.15982"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <rect
        style="fill:#ff0000;stroke:none"
        id="rect3058-5-0-8"
        width="38.152611"
        height="12.4498"
        x="434.28589"
        y="-293.22491"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <rect
+       style="fill:#0000ff;stroke:none"
+       id="rect3138-9-1"
+       width="34.358791"
+       height="28.021721"
+       x="483.39554"
+       y="-228.78018"
        transform="matrix(0,1,-1,0,0,0)" />
     <rect
        style="fill:#ff0000;stroke:none"
@@ -707,7 +802,7 @@
            y="64.362183" /></flowRegion><flowPara
          id="flowPara3151-3-2">big book</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Lstart)"
-       d="m 277,475.36218 c -41,30 -25,137 -25,137"
+       d="m 271.31635,482.66973 c -41,30 -19.31635,129.69245 -19.31635,129.69245"
        id="path5775-6-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
@@ -752,15 +847,42 @@
        xml:space="preserve"
        id="flowRoot6442"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
-       transform="translate(-8,236)"><flowRegion
+       transform="translate(-26,236)"><flowRegion
          id="flowRegion6444"><rect
            id="rect6446"
-           width="114"
+           width="161.90503"
            height="53"
            x="589"
            y="117.36218" /></flowRegion><flowPara
-         id="flowPara6448"
-         style="text-align:center;text-anchor:middle">shortest</flowPara><flowPara
          id="flowPara6450"
-         style="text-align:center;text-anchor:middle">focal length</flowPara></flowRoot>  </g>
+         style="text-align:center;text-anchor:middle">shortest focal length = ?</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3257"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:16px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Sans;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr"><flowRegion
+         id="flowRegion3259"><rect
+           id="rect3261"
+           width="110.42515"
+           height="60.08427"
+           x="276.87482"
+           y="505.9201" /></flowRegion><flowPara
+         id="flowPara3263"></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3276"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       transform="translate(-19.48679,-4.059748)"><flowRegion
+         id="flowRegion3278"><rect
+           id="rect3280"
+           width="106.36539"
+           height="76.323265"
+           x="286.61819"
+           y="512.41571"
+           style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3282">camera</flowPara><flowPara
+         id="flowPara3286">platform</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Lstart)"
+       d="m 387.75686,569.46376 c -77.34088,-1.84529 -63.96668,-19.95597 -63.96668,-19.95597"
+       id="path5775-6-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+  </g>
 </svg>
