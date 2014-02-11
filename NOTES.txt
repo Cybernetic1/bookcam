@@ -1,0 +1,31 @@
+****** How to use imageJ macro to batch "subtract background" **********
+
+****** set ImageJ global setting (JPEG 60%)
+run("Input/Output...", "jpeg=60 gif=-1 file=.txt use_file copy_row save_column save_row");
+
+****** rotate images
+for f in *A.png; do mogrify -rotate "+90" "$f"; done
+for f in *B.png; do mogrify -rotate "-90" "$f"; done
+
+****** crop images
+ls -1 img*.png > files
+../crop.py -list files
+****** for single files:
+../crop.py -test file out_file
+
+****** subtract background and increase contrast
+****** generate ImageJ macro script
+ls -1 a\!\!img*.png > t1
+sed -f sed_file t1 > t2.ijm
+imagej -b t2.ijm
+
+****** Convert to PDF
+convert c\!\!*.jpg test.pdf
+****** if PDF size too big:
+pdftk test1.pdf test2.pdf cat output test.pdf
+
+****** find & replace in Geany (reference only, no use)
+Replace:
+	open\(\"(img[0-9]+[LRAB]?.png\")\);
+With:
+	open\(\"\1\);\nsaveAs("PNG", \"--\1);
