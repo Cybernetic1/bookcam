@@ -1,7 +1,17 @@
 ****** How to use imageJ macro to batch "subtract background" **********
 
+****** find & replace in Geany (reference only, no use)
+Replace:
+	open\(\"(img[0-9]+[LRAB]?.png\")\);
+With:
+	open\(\"\1\);\nsaveAs("PNG", \"--\1);
+
 ****** set ImageJ global setting (JPEG 60%)
 run("Input/Output...", "jpeg=60 gif=-1 file=.txt use_file copy_row save_column save_row");
+
+****** to save single file as JPEG:
+sed s/0000X/0004B/ to-jpeg.ijm > t3.ijm
+imagej -b t3.ijm
 
 ****** rotate images
 for f in *A.png; do mogrify -rotate "+90" "$f"; done
@@ -15,17 +25,19 @@ ls -1 img*.png > files
 
 ****** subtract background and increase contrast
 ****** generate ImageJ macro script
-ls -1 a\!\!img*.png > t1
-sed -f sed_file t1 > t2.ijm
+ls -1 1img*.png > t1
+sed -f sed_file t1 > t2.ijm  (or sed_file_big)
 imagej -b t2.ijm
 
-****** Convert to PDF
-convert c\!\!*.jpg test.pdf
-****** if PDF size too big:
-pdftk test1.pdf test2.pdf cat output test.pdf
+****** convert covers to JPEG
+./cover.sh
+   (...then enter image number of covers)
 
-****** find & replace in Geany (reference only, no use)
-Replace:
-	open\(\"(img[0-9]+[LRAB]?.png\")\);
-With:
-	open\(\"\1\);\nsaveAs("PNG", \"--\1);
+****** Convert to PDF
+convert 2img*.jpg test.pdf
+****** if PDF size too big:
+files=`ls 2img00*.jpg`
+echo $files
+convert $files test0.pdf ; beep
+.... etc
+pdftk test0.pdf test1.pdf cat output test.pdf
