@@ -17,27 +17,25 @@ imagej -b t3.ijm
 for f in *A.png; do mogrify -rotate "+90" "$f"; done
 for f in *B.png; do mogrify -rotate "-90" "$f"; done
 
-****** crop images
-ls -1 img*.png > files
-../crop.py -list files
-****** for single files:
-../crop.py -test file out_file
+******************************************************
+******************************************************
 
-****** subtract background and increase contrast
-****** generate ImageJ macro script
-ls -1 1img*.png > t1
-sed -f sed_file t1 > t2.ijm  (or sed_file_big)
+*********************** subtract background, increase contrast
+ls -1 img*.png > t1
+sed -f sed-new t1 > t2.ijm
 imagej -b t2.ijm
 
-****** convert covers to JPEG
-./cover.sh
-   (...then enter image number of covers)
+*********************** deskew
+./deskwe.sh
+./files
 
-****** Convert to PDF
-convert 2img*.jpg test.pdf
-****** if PDF size too big:
-files=`ls 2img00*.jpg`
-echo $files
-convert $files test0.pdf ; beep
-.... etc
+*********************** crop images
+ls -1 2img*A.jpg > files    (...repeat for B)
+./crop-fixed.py files
+
+*********************** convert covers to JPEG
+./cover.sh   (...then enter image number of covers)
+
+*********************** convert to PDF
+convert 3img00*.jpg 0.pdf      (...repeat for 01, 02 etc...)
 pdftk test0.pdf test1.pdf cat output test.pdf

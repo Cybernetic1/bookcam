@@ -46,7 +46,7 @@ l_focus = r_focus = 1
 l_light = r_light = 8
 l_contrast = r_contrast = 10
 l_sharpness = r_sharpness = 12
-		
+
 print "Open cam A window"
 cv.NamedWindow("cam A", cv.CV_WINDOW_NORMAL)
 
@@ -116,7 +116,7 @@ def time_capture():
 		cv2.imwrite(filename + "A.png", feed0)
 
 		print "Saved ", filename, " single image"
-		call(["beep", "-f 1800"])
+		call(["beep", "-f2800", "-l30"])
 
 		#~ cv.ResizeWindow("cam A", 1280, 1024)
 		#~ cv.ResizeWindow("cam B", 1280, 1024)
@@ -168,17 +168,17 @@ while True:
 		#cv.SaveImage(filename, feed0)
 		cv2.imwrite(filename, feed0)
 		file_index = file_index + 1
-		call(["beep", "-f 1800"])
+		call(["beep", "-f2800", "-l30"])
 		print "Captured cam A, index incremented: " + filename + '\n'
 		cv2.imshow("cam A", feed0)
 
-	if key == 10:					# 'Enter' = capture once (single page)
+	if key == 10 or key == 65421:			# 'Enter' = capture once (single page)
 		#feed0 = cv.RetrieveFrame(cam0)
 		filename = "img{:04d}".format(file_index)
 		cv2.imwrite(filename + "A.png", feed0)
 		file_index = file_index + 1
 		print "Saved ", filename, " single, index increased"
-		call(["beep", "-f 1800"])
+		call(["beep", "-f2800", "-l30"])
 		print "Capture 1 pic: ", filename
 		cv2.imshow("cam A", feed0)
 

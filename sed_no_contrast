@@ -1,0 +1,10 @@
+s/1img/img/   # remove head
+s/.png//  # remove extension
+# open("1img0001A.png");
+# print("\nprocessing: " + "1img0001A.png");
+# run("8-bit");
+# run("Subtract Background...", "rolling=10 light");
+# run("Enhance Contrast", "saturated=2");
+# saveAs("JPG", "2img0001A.jpg");
+# close();
+s/img[0-9]*[AB]*/open\(\"1&.png\"\);\nprint\(\"\\nprocessing: \" + \"1&.png\"\);\nrun\(\"8-bit\"\);\nrun\(\"Subtract Background...\", \"rolling=10 light\"\);\nsaveAs\(\"JPG\", \"2&.jpg\"\);\nclose\(\);/

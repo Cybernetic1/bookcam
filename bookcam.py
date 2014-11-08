@@ -8,8 +8,8 @@
 # * suppress error messages from libwebcam
 
 from SimpleCV import *
-import cv2		# now using cv2 for capture
 import cv		# using cv for windows display
+import cv2		# now using cv2 for capture
 
 from subprocess import call
 import sys
@@ -44,11 +44,11 @@ timeDelay = 8  					# number of seconds to wait
 timerState = False
 
 l_shift = r_shift = l_ctrl = r_ctrl = False
-l_focus = r_focus = 1
+l_focus = r_focus = 10
 l_light = r_light = 8
 l_contrast = r_contrast = 10
 l_sharpness = r_sharpness = 12
-		
+
 print "Open cam A, B windows"
 cv.NamedWindow("cam A", cv.CV_WINDOW_NORMAL)
 cv.NamedWindow("cam B", cv.CV_WINDOW_NORMAL)
@@ -63,10 +63,10 @@ cv.ResizeWindow("cam A", display_width, display_height)
 cv.ResizeWindow("cam B", display_width, display_height)
 
 print "Detecting camera numbers"
-os.system("uvcdynctrl -l | egrep -o \"[0-9]\" > cam_numbers.txt")
+os.system("uvcdynctrl -l | egrep -o \"video[0-9]\" > cam_numbers.txt")
 with open("cam_numbers.txt", "r") as f:
-	cam0_num = f.readline()[0]
-	cam1_num = f.readline()[0]
+	cam0_num = f.readline()[5]
+	cam1_num = f.readline()[5]
 
 print "Starting video capture"
 cam0 = cv2.VideoCapture(int(cam0_num))
@@ -137,7 +137,7 @@ def time_capture():
 		cv2.imwrite(filename + "B.png", feed1)
 
 		print "Saved ", filename, " pair"
-		call(["beep", "-f 1800"])
+		call(["beep", "-f2800", "-l30"])
 
 		#~ cv.ResizeWindow("cam A", 1280, 1024)
 		#~ cv.ResizeWindow("cam B", 1280, 1024)
@@ -162,7 +162,7 @@ while True:
 		#feed0 = cv.QueryFrame(cam0)
 		#cv.ShowImage("cam A", feed0)
 		cv2.imshow("cam A", feed0)
-		
+
 	if display_b:
 		#feed1 = cv.QueryFrame(cam1)
 		#cv.ShowImage("cam B", feed1)
@@ -172,7 +172,7 @@ while True:
 	# print "key is <", key, "> end"
 
 	if key == 65601:			# 'A' = view cam A, big view
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		print "cam A, 1280x1024"
 		#~ cv2.destroyAllWindows()
 		#~ cv.NamedWindow("cam A", cv.CV_WINDOW_NORMAL)
@@ -183,7 +183,7 @@ while True:
 		display_b = False
 
 	if key == 65602:			# 'B' = view cam B, big view
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		print "cam B, 1280x1024"
 		#~ cv2.destroyAllWindows()
 		#~ cv.NamedWindow("cam B", cv.CV_WINDOW_NORMAL)
@@ -194,7 +194,7 @@ while True:
 		display_b = True
 
 	if key == ord("a"):				# 'a' = view cam A, small view (not working yet)
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		print "cam A, 1280x1024"
 		#~ cv2.destroyAllWindows()
 		#~ cv.NamedWindow("cam A", cv.CV_WINDOW_NORMAL)
@@ -205,7 +205,7 @@ while True:
 		display_b = False
 
 	if key == 98:				# 'b' = view cam B, small view (not working yet)
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		print "cam B, 1280x1024"
 		#~ cv2.destroyAllWindows()
 		#~ cv.NamedWindow("cam B", cv.CV_WINDOW_NORMAL)
@@ -216,7 +216,7 @@ while True:
 		display_b = True
 
 	if key == 50:				# '2' = view both cameras
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		print "Dual cam"
 		#~ cv2.destroyAllWindows()
 		#~ cv.NamedWindow("cam A", cv.CV_WINDOW_NORMAL)
@@ -236,7 +236,7 @@ while True:
 		#cv.SaveImage(filename, feed0)
 		cv2.imwrite(filename, feed0)
 		file_index = file_index + 1
-		call(["beep", "-f 1800"])
+		call(["beep", "-f2800", "-l30"])
 		print "Captured cam A, index incremented: " + filename + '\n'
 		cv2.imshow("cam A", feed0)
 
@@ -246,7 +246,7 @@ while True:
 		#cv.SaveImage(filename, feed1)
 		cv2.imwrite(filename, feed1)
 		file_index = file_index + 1
-		call(["beep", "-f 1800"])
+		call(["beep", "-f2800", "-l30"])
 		print "Captured cam B, index incremented: " + filename + '\n'
 		cv2.imshow("cam B", feed1)
 
@@ -258,7 +258,7 @@ while True:
 		cv2.imwrite(filename + "B.png", feed1)
 		file_index = file_index + 1
 		print "Saved ", filename, " pair, index increased"
-		call(["beep", "-f 1800"])
+		call(["beep", "-f2800", "-l30"])
 		print "Capture 2 pics ", filename
 		cv2.imshow("cam A", feed0)
 		cv2.imshow("cam B", feed1)
@@ -289,30 +289,30 @@ while True:
 			display_a = False
 			display_b = False
 
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	if key == 65288:						# Backspace key = back space to previous image
 		# This has the effect of either deleting 1 image or 2 images
 		# depending on whether the current mode is single-page or double-page
 		file_index = file_index - 1
 		print "index reset to ", "img{:04d}.png".format(file_index)
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	if key == ord('i'):					# i = manually reset index
 		answer = raw_input("Enter new index: ")
 		file_index = int(answer)
 		print "index reset to ", "img{:04d}.png".format(file_index)
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	if key == ord('=') or key == 65451:	# + = increase index by 1
 		file_index = file_index + 1
 		print "index increased to ", "img{:04d}.png".format(file_index)
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	if key == ord('-') or key == 65453:	# - = decrease index by 1
 		file_index = file_index - 1
 		print "index decreased to ", "img{:04d}.png".format(file_index)
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	if key == 65505:
 		l_shift = True
@@ -333,122 +333,122 @@ while True:
 	if key == 65606 and l_shift:
 		l_focus += 1
 		os.system("uvcdynctrl -d video" + cam0_num + " -s \"Focus (absolute)\" " + str(l_focus))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 65606 and r_shift:
 		r_focus += 1
 		os.system("uvcdynctrl -d video" + cam1_num + " -s \"Focus (absolute)\" " + str(r_focus))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 262246 and l_ctrl:
 		l_focus -= 1
 		os.system("uvcdynctrl -d video" + cam0_num + " -s \"Focus (absolute)\" " + str(l_focus))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 262246 and r_ctrl:
 		r_focus -= 1
 		os.system("uvcdynctrl -d video" + cam1_num + " -s \"Focus (absolute)\" " + str(r_focus))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	# Light
 	if key == 65612 and l_shift:
 		l_light += 1
 		os.system("uvcdynctrl -d video" + cam0_num + " -s \"Brightness\" " + str(l_light))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 65612 and r_shift:
 		r_light += 1
 		os.system("uvcdynctrl -d video" + cam1_num + " -s \"Brightness\" " + str(r_light))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 262252 and l_ctrl:
 		l_light -= 1
 		os.system("uvcdynctrl -d video" + cam0_num + " -s \"Brightness\" " + str(l_light))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 262252 and r_ctrl:
 		r_light -= 1
 		os.system("uvcdynctrl -d video" + cam1_num + " -s \"Brightness\" " + str(r_light))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	# Contrast
 	if key == 65603 and l_shift:
 		l_contrast += 1
 		os.system("uvcdynctrl -d video" + cam0_num + " -s \"Contrast\" " + str(l_contrast))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 65603 and r_shift:
 		r_contrast += 1
 		os.system("uvcdynctrl -d video" + cam1_num + " -s \"Contrast\" " + str(r_contrast))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 262243 and l_ctrl:
 		l_contrast -= 1
 		os.system("uvcdynctrl -d video" + cam0_num + " -s \"Contrast\" " + str(l_contrast))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 262243 and r_ctrl:
 		r_contrast -= 1
 		os.system("uvcdynctrl -d video" + cam1_num + " -s \"Contrast\" " + str(r_contrast))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	# Sharpness
 	if key == 65619 and l_shift:
 		l_sharpness += 1
 		os.system("uvcdynctrl -d video" + cam0_num + " -s \"Sharpness\" " + str(l_sharpness))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 65619 and r_shift:
 		r_sharpness += 1
 		os.system("uvcdynctrl -d video" + cam1_num + " -s \"Sharpness\" " + str(r_sharpness))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 262259 and l_ctrl:
 		l_sharpness -= 1
 		os.system("uvcdynctrl -d video" + cam0_num + " -s \"Sharpness\" " + str(l_sharpness))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 	if key == 262259 and r_ctrl:
 		r_sharpness -= 1
 		os.system("uvcdynctrl -d video" + cam1_num + " -s \"Sharpness\" " + str(r_sharpness))
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	if key == ord('f'):						# view focus
-		print "**** L/R Focus = ", l_focus, r_focus 
+		print "**** L/R Focus = ", l_focus, r_focus
 		os.system("uvcdynctrl -d video" + cam0_num + " -g \"Focus (absolute)\"")
 		os.system("uvcdynctrl -d video" + cam1_num + " -g \"Focus (absolute)\"")
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		# ans = raw_input("Enter cameras focus (absolute) value: ")
 		# os.system("uvcdynctrl -d video" + cam0_num + " -s \"Focus (absolute)\" " + ans)
 		# os.system("uvcdynctrl -d video" + cam1_num + " -s \"Focus (absolute)\" " + ans)
 
 	if key == ord('c'):						# view contrast
-		print "**** L/R Contrast = ", l_contrast, r_contrast 
+		print "**** L/R Contrast = ", l_contrast, r_contrast
 		os.system("uvcdynctrl -d video" + cam0_num + " -g \"Contrast\"")
 		os.system("uvcdynctrl -d video" + cam1_num + " -g \"Contrast\"")
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		# ans = raw_input("Enter camera contrast value: ")
 		# os.system("uvcdynctrl -d video" + cam0_num + " -s \"Contrast\" " + ans)
 		# os.system("uvcdynctrl -d video" + cam1_num + " -s \"Contrast\" " + ans)
 
 	if key == ord('l'):						# view lightness (brightness)
-		print "**** L/R Light = ", l_light, r_light 
+		print "**** L/R Light = ", l_light, r_light
 		os.system("uvcdynctrl -d video" + cam0_num + " -g \"Brightness\"")
 		os.system("uvcdynctrl -d video" + cam1_num + " -g \"Brightness\"")
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		# ans = raw_input("Enter cameras brightness value: ")
 		# os.system("uvcdynctrl -d video" + cam0_num + " -s \"Brightness\" " + ans)
 		# os.system("uvcdynctrl -d video" + cam1_num + " -s \"Brightness\" " + ans)
 
 	if key == ord('s'):						# view sharpness
-		print "**** L/R Sharpness = ", l_sharpness, r_sharpness 
+		print "**** L/R Sharpness = ", l_sharpness, r_sharpness
 		os.system("uvcdynctrl -d video" + cam0_num + " -g \"Sharpness\"")
 		os.system("uvcdynctrl -d video" + cam1_num + " -g \"Sharpness\"")
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 	if key == 27:							# 'escape' or 'x' key = exit
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		print "Bye bye"
 		break
-		
+
 	if key == ord('x'):						# exchange cam A and cam B
 		temp = cam0
 		cam0 = cam1
 		cam1 = temp
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 		print "Exchanged cam A and B"
 
 	if key == ord('h'):
 		help()
-		call(["beep", "-f 400"])
+		call(["beep", "-f400"])
 
 print "Start time = ", start_time
 print "Current time = ", time.asctime(time.localtime(time.time()))

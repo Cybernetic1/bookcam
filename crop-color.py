@@ -88,6 +88,9 @@ while True:
 	elif key == 65364 + 65536:						# Bottom
 		crop[3] -= 1
 
+	elif key == ord('0'):							# '0' = full view
+		crop = [0, 0, 0, 0]
+
 	elif key == ord('f'):							# record failure
 		f2.write(fname)
 		print "  failed: " + fname + '\n'
@@ -123,12 +126,13 @@ while True:
 		break
 
 	elif key < 256:									#accept
-		# do the real cropping and resize
+		# do the real cropping
 		img1 = img0[crop[2] : old_height - crop[3], crop[1] : old_width - crop[0]]
 
-		img0 = cv2.resize(img1, (int(standard_width), int(standard_height)))
+		# perhaps no need to resize?
+		# img0 = cv2.resize(img1, (int(standard_width), int(standard_height)))
 		new_name = "1" + fname
-		cv2.imwrite(new_name, img0)
+		cv2.imwrite(new_name, img1)
 		print "  saved image: " + new_name
 		call(["beep", "-f 1300"])
 		break

@@ -1,0 +1,9 @@
+s/3img/img/   # remove head number
+s/.jpg//      # remove extension
+# open("3img0001A.png");
+# print("\nprocessing: " + "3img0001A.jpg");
+# setMinAndMax(160, 235);
+# run("Apply LUT");
+# saveAs("JPG", "2img0001A.jpg");
+# close();
+s/img[0-9]*[AB]*/open\(\"3&.jpg\"\);\nprint\(\"\\nprocessing: \" + \"3&.jpg\"\);\nsetMinAndMax\(160,255\);\nrun\(\"Apply LUT\"\);\nsaveAs\(\"JPG\", \"4&.jpg\"\);\nclose\(\);/

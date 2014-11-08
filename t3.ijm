@@ -1,4 +1,4 @@
-open("1img0002B.png");
-print("\nprocessing: " + "1img0002B.png");
-saveAs("JPG", "2img0002B.jpg");
+open("1img0002A.png");
+print("\nprocessing: " + "1img0002A.png");
+saveAs("JPG", "3img0002A.jpg");
 close();
