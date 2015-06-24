@@ -26,7 +26,7 @@ cv2.namedWindow('preview', 0)
 if len(sys.argv) == 1:
 	print "\nUsage:"
 	print "To crop one file: (default out_file = 'test.png')"
-	print "    crop image_file [out_file]"
+	print "   crop image_file [out_file]"
 	print "\nDuring preview: press 'f' to record failure"
 	print "                        'd' to delete current file"
 	print "                        any other key to accept\n"
@@ -35,7 +35,7 @@ if len(sys.argv) == 1:
 ## !!!!!!!!!!! Notice that right = 0 and left = 1 !!!!!!!!!!!
 
 # 	right left top bottom
-crop = [20, 20, 20, 20]
+crop = [20, 20, 300, 20]
 print "crop right/left/top/bottom = ", crop
 
 fname = sys.argv[1]
@@ -49,7 +49,7 @@ while True:
 
 	#img0 = Image(fname1)
 	# bookside = find_bookside(img0)
-
+	
 	img0 = cv2.imread(fname, 1)							# 1 for color
 	old_height, old_width, depth = img0.shape
 

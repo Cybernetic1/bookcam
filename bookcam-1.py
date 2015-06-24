@@ -18,8 +18,8 @@ import sys
 
 from datetime import datetime
 import time
-from apscheduler.scheduler import Scheduler
-sched = Scheduler()
+from apscheduler.schedulers.background import BackgroundScheduler
+sched = BackgroundScheduler()
 sched.start()
 
 def help():
@@ -195,9 +195,9 @@ while True:
 			display_a = False
 
 			timerState = True
-			sched = Scheduler()
+			sched = BackgroundScheduler()
 			sched.start()
-			sched.add_interval_job(time_capture, seconds = timeDelay)
+			sched.add_job(time_capture, interval, seconds = timeDelay)
 
 		else:
 			sched.shutdown()
