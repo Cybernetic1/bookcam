@@ -5,17 +5,17 @@
 ## ================================================================
 
 ## Use SimpleCV
-## from SimpleCV import *
+from SimpleCV import *
 from math import sqrt
 import sys
 
-# import cv
+import cv
 import cv2
 
-standard_height = 2023.0 #1430.0
-standard_width = 2866.0 #970.0
-print("Standard width = ", standard_width)
-print("Standard height = ", standard_height)
+standard_height = 1600.0 #1430.0
+standard_width = 1200.0 #970.0
+print "Standard width = ", standard_width
+print "Standard height = ", standard_height
 
 # Create preview window
 cv2.namedWindow('preview', 0)
@@ -24,26 +24,26 @@ cv2.namedWindow('preview', 0)
 # bigger = the darker;
 # The higher the threshold, the more aggressively it will crop
 sum_threshold = 2600
-print("Color_sum threshold = ", sum_threshold)
+print "Color_sum threshold = ", sum_threshold
 
 right_percent = 0.8
 left_percent = 0.8
 top_percent = 0.8
 bottom_percent = 0.9
-print("Examining book sides (left, right, top, bottom) = ", \
-		[left_percent, right_percent, top_percent, bottom_percent])
+print "Examining book sides (left, right, top, bottom) = ", \
+		[left_percent, right_percent, top_percent, bottom_percent]
 
 if len(sys.argv) == 1:
-	print("\nUsage:")
-	print("To crop one file use: (default out_file = 'test.png')")
-	print("    crop -1 image_file [out_file]")
-	print("To crop a list of images for real:")
-	print("    crop -list files_list")
+	print "\nUsage:"
+	print "To crop one file use: (default out_file = 'test.png')"
+	print "    crop -1 image_file [out_file]"
+	print "To crop a list of images for real:"
+	print "    crop -list files_list"
 	# print "where L/R specifies which side is the 'book' side"
-	print("\nDuring preview: press 'f' to record failure")
-	print("                        'd' to delete current file")
-	print("                        'o' to reset crop options")
-	print("                        any other key to accept\n")
+	print "\nDuring preview: press 'f' to record failure"
+	print "                        'd' to delete current file"
+	print "                        'o' to reset crop options"
+	print "                        any other key to accept\n"
 	# print "where 'left/right' specifies which side is the 'variable' side."
 	exit()
 
@@ -61,25 +61,19 @@ super_bookside = None
 # function that calculates the distance of a color from "white"
 # it cuts off from > 180 (if white = 255), ie 75
 def err(z):
-	z0 = int(z[0])
-	z1 = int(z[1])
-	z2 = int(z[2])
-	# print(z0, z1, z2)
+	z0 = z[0]
+	z1 = z[1]
+	z2 = z[2]
 	zz = 255.0 - sqrt(z0*z0 + z1*z1 + z2*z2)
 	if zz < 50:
 		zz = 0
 	return zz
 
-img_width = 0
-img_height = 0
-
 def find_bookside(img):
 	# determine which side is the 'book' side (which should be whiter)
 	# sum = the smaller the whiter
-	global img_width, img_height
-	img_width, img_height, _ = img.shape
-	max_x = img_width - 1
-	max_y = img_height - 1
+	max_x = img.width - 1
+	max_y = img.height - 1
 
 	color_sum0 = 0.0	# right
 	color_sum1 = 0.0	# left
@@ -96,12 +90,12 @@ def find_bookside(img):
 	if not (super_bookside is None):
 		bookside = super_bookside
 
-	print("final book side = ", bookside, " (L = 1, R = 0)")
+	print "final book side = ", bookside, " (L = 1, R = 0)"
 	return bookside
 
 def crop(img):
-	max_x = img_width - 1
-	max_y = img_height - 1
+	max_x = img.width - 1
+	max_y = img.height - 1
 
 	crop = [None, None, None, None]
 	default = [max_x + 1, 0, 0, max_y + 1]
@@ -109,7 +103,7 @@ def crop(img):
 	# scan each vertical line from the right
 	for x in range(max_x, max_x - 300, -1):
 		# start from the middle, try to "grow" a white line as much as possible
-		mid_y = max_y // 2
+		mid_y = max_y / 2
 		# color_sum = sum of deviations from "white"
 		color_sum = 0
 		for y in range(0, mid_y):
@@ -129,7 +123,7 @@ def crop(img):
 	# scan each vertical line from the left
 	for x in range(0, 300):
 		# start from the middle, try to "grow" a white line as much as possible
-		mid_y = max_y // 2
+		mid_y = max_y / 2
 		# color_sum = sum of deviations from "white"
 		color_sum = 0.0
 		for y in range(0, mid_y):
@@ -151,7 +145,7 @@ def crop(img):
 	# scan each horizontal line from the top
 	for y in range(0, 300):
 		# start from the middle, try to "grow" a white line as much as possible
-		mid_x = max_x // 2
+		mid_x = max_x / 2
 		# color_sum = sum of deviations from "white"
 		color_sum = 0
 		for x in range(0, mid_x):
@@ -171,7 +165,7 @@ def crop(img):
 	# scan each horizontal line from the bottom
 	for y in range(max_y, max_y - 300, -1):
 		# start from the middle, try to "grow" a white line as much as possible
-		mid_x = max_x // 2
+		mid_x = max_x / 2
 		# color_sum = sum of deviations from "white"
 		color_sum = 0
 		for x in range(0, mid_x):
@@ -188,7 +182,7 @@ def crop(img):
 			crop[3] = y
 			break
 
-	print("crop right/left/top/bottom = ", crop)
+	print "crop right/left/top/bottom = ", crop
 
 	for i in range(0,4):
 		if crop[i] is None:
@@ -206,25 +200,23 @@ def crop(img):
 
 	height = crop[3] - crop[2] + 1
 	width = crop[0] - crop[1] + 1
-	crop_img = img[crop[2]:crop[2]+height, crop[1]:crop[1]+width]
-	return crop_img
-	# return img.crop(crop[1], crop[2], width, height)
+	return img.crop(crop[1], crop[2], width, height)
 
 def resize(img, bookside):
 	# ***** scale the image to a uniform size for all pages:
 	# height of image is not going to change:
-	height = img_height
+	height = img.height
 	# width follows from aspect ratio
 	width = int((height / standard_height) * standard_width)
-	if width > img_width:
-		width = img_width
+	if width > img.width:
+		width = img.width
 	# !!!!!!!!!!!!!!! remember to use floating points above, or it will be fuct !!!!!
 
 	# Since the book-side cannot be chopped, use the opposite chopped edge
 	# to determine the book side chop position
 	if bookside == 1:	# left
-		if img_width > width:
-			crop_left = img_width - width
+		if img.width > width:
+			crop_left = img.width - width
 		else:
 			crop_left = 0
 		# img.dl().line((crop[1],0), (crop[1],max_y), color=Color.BLUE, width=3)
@@ -235,31 +227,28 @@ def resize(img, bookside):
 	# arguments to crop(x,y,w,h) = x, y of top-left corner, width, height
 	# print "width height = ", width, height
 	
-	print("final crop left/top/width/height = ", [crop_left, 0, width, height])
-	new_img = img[0:height, crop_left:crop_left+width]
-	# new_img = img.crop(crop_left, 0, width, height)
+	print "final crop left/top/width/height = ", [crop_left, 0, width, height]
+	new_img = img.crop(crop_left, 0, width, height)
 
-	dim = (int(standard_width), int(standard_height))
-	resized = cv2.resize(new_img, dim)
-	return resized
+	return new_img.resize(int(standard_width), int(standard_height))
 
 if sys.argv[1] == "-1":
-	img0 = cv2.imread(sys.argv[2])
+	img0 = Image(sys.argv[2])
 	bookside = find_bookside(img0)
 	
 	while True:
-		old_width = img_width
-		old_height = img_height
+		old_width = img0.width
+		old_height = img0.height
 		img1 = crop(img0)
 		img0 = img1
-		if old_width == img_width and old_height == img_height:
+		if old_width == img0.width and old_height == img0.height:
 			break
 
 	img1 = resize(img0, bookside)
-	try:
-		cv2.imwrite(sys.argv[3], img1)
-	except (IndexError, ValueError):
-		cv2.imwrite("test.jpg", img1)
+	if sys.argv[3] is None:
+		img1.save("test.png")
+	else:
+		img1.save(sys.argv[3])
 
 	# img1 = Image("test.jpg")
 	# raw_input("Press Enter to continue...")
@@ -280,11 +269,11 @@ if sys.argv[1] == "-list":
 		
 		if skip:
 			f1.write(fname)							# '\n' is included in fname
-			print("skipping: " + fname)
+			print "skipping: " + fname
 			continue
 
 		fname1 = fname.rstrip()
-		print("               ***** Processing :" + fname1)
+		print "               ***** Processing :" + fname1
 		img0 = Image(fname1)
 		bookside = find_bookside(img0)
 
@@ -304,29 +293,29 @@ if sys.argv[1] == "-list":
 		img1 = cv2.imread(new_name, 0)
 		cv2.imshow('preview', img1)
 
-		print("backspace = previous, d = delete, f = record failure")
-		print("o = set options, any other = accept")
+		print "backspace = previous, d = delete, f = record failure"
+		print "o = set options, any other = accept"
 		# - = crop more, + = crop less
 		key = cv2.waitKey(0)
 
 		if key == ord('f'):							# record failure
 			f2.write(fname)
-			print("failed: " + fname)
+			print "failed: " + fname
 			# delete file?
 			
 		elif key == ord('d'):						# delete
 			os.remove(new_name)
-			print("deleted: " + new_name + '\n')
+			print "deleted: " + new_name + '\n'
 			
 		elif key == 65288:							# Backspace = go to previous image
 			i -= 2
-			print("new image index = " + i)
+			print "new image index = " + i
 
 		elif key == ord('o'):						# set options
-			print("Examining book sides (left, right, top, bottom) = ", \
-				[left_percent, right_percent, top_percent, bottom_percent])
-			print("Color sum threshold = ", sum_threshold)
-			ans = input("input new parameters (threshold, L, R, T, B): ")
+			print "Examining book sides (left, right, top, bottom) = ", \
+				[left_percent, right_percent, top_percent, bottom_percent]
+			print "Color sum threshold = ", sum_threshold
+			ans = raw_input("input new parameters (threshold, L, R, T, B): ")
 			ans2 = ans.split(',')
 			sum_threshold = int(ans2[0])
 			left_percent = float(ans2[1])

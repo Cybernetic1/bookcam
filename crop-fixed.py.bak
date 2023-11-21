@@ -5,34 +5,34 @@
 ## ================================================================
 
 ## Use SimpleCV
-# from SimpleCV import *
+from SimpleCV import *
 from math import sqrt
 import sys
 import numpy as np
 from subprocess import call
 
-# import cv
+import cv
 import cv2
 
 standard_height = 1600.0 #1430.0
 standard_width = 1200.0 #970.0
-print("Standard width = ", standard_width)
-print("Standard height = ", standard_height)
+print "Standard width = ", standard_width
+print "Standard height = ", standard_height
 
 # Create preview window
 cv2.namedWindow('preview', 0)
 # cv2.resizeWindow('preview', standard_width, standard_height)
 
 if len(sys.argv) == 1:
-	print("\nUsage:")
-	print("To crop one file use: (default out_file = 'test.png')")
-	print("    crop -1 image_file [out_file]")
-	print("To crop a list of images:")
-	print("    crop files_list")
+	print "\nUsage:"
+	print "To crop one file use: (default out_file = 'test.png')"
+	print "    crop -1 image_file [out_file]"
+	print "To crop a list of images:"
+	print "    crop files_list"
 	# print "where L/R specifies which side is the 'book' side"
-	print("\nDuring preview: press 'f' to record failure")
-	print("                        'd' to delete current file")
-	print("                        any other key to accept\n")
+	print "\nDuring preview: press 'f' to record failure"
+	print "                        'd' to delete current file"
+	print "                        any other key to accept\n"
 	# print "where 'left/right' specifies which side is the 'variable' side."
 	exit()
 
@@ -41,27 +41,30 @@ f2 = open('failure_list', 'a')
 
 ## !!!!!!!!!!! Notice that right = 0 and left = 1 !!!!!!!!!!!
 
-# *********** This part seems not working **************
-if sys.argv[1] == "-1":
-	img0 = cv2.imread(sys.argv[2])
+# *********** This part is not working **************
+#if sys.argv[1] == "-1":
+	#print "This function is not working"
+	#exit()
 
-	while True:
-		old_width = img0.shape[0]
-		old_height = img0.shape[1]
-		img1 = crop(img0)
-		img0 = img1
-		if old_width == img0.width and old_height == img0.height:
-			break
+	#img0 = Image(sys.argv[2])
 
-	img1 = resize(img0, bookside)
-	if sys.argv[3] is None:
-		img1.save("test.png")
-	else:
-		img1.save(sys.argv[3])
+	#while True:
+		#old_width = img0.width
+		#old_height = img0.height
+		#img1 = crop(img0)
+		#img0 = img1
+		#if old_width == img0.width and old_height == img0.height:
+			#break
 
-	img1 = Image("test.jpg")
-	raw_input("Press Enter to continue...")
-	exit()
+	#img1 = resize(img0, bookside)
+	#if sys.argv[3] is None:
+		#img1.save("test.png")
+	#else:
+		#img1.save(sys.argv[3])
+
+	## img1 = Image("test.jpg")
+	## raw_input("Press Enter to continue...")
+	#exit()
 
 ############################ New Workflow ############################
 # -- allow users to choose margins and try again
@@ -69,7 +72,7 @@ if sys.argv[1] == "-1":
 
 # 		right left top bottom
 crop = [20, 20, 20, 20]
-print("crop right/left/top/bottom = ", crop)
+print "crop right/left/top/bottom = ", crop
 
 with open(sys.argv[1]) as f:
 	files = f.readlines()
@@ -84,13 +87,13 @@ while i < len(files):
 
 	if skip:
 		f1.write(fname1 + '\n')
-		print("skipping: " + fname1)
+		print "skipping: " + fname1
 		continue
 
-	print("***** Processing: " + fname1)
-	print("  backspace = previous, d = delete, f = record failure, esc = skip rest")
-	print("  arrows = shrink, shift arrows = expand, ctrl arrows = fast shrink")
-	print("  any other key = accept")
+	print "***** Processing: " + fname1
+	print "  backspace = previous, d = delete, f = record failure, esc = skip rest"
+	print "  arrows = shrink, shift arrows = expand, ctrl arrows = fast shrink"
+	print "  any other key = accept"
 
 	while True:
 
@@ -140,14 +143,14 @@ while i < len(files):
 
 		elif key == ord('f'):							# record failure
 			f2.write(fname)
-			print("failed: " + fname)
+			print "failed: " + fname
 			call(["beep", "-f300"])
 			# delete file?
 			break
 
 		elif key == ord('d'):							# delete
 			os.remove(fname1)
-			print("  deleted: " + fname)
+			print "  deleted: " + fname
 			call(["beep", "-f300"])
 			break
 
@@ -155,13 +158,13 @@ while i < len(files):
 			i -= 2
 			fname = files[i]
 			fname1 = fname.rstrip() 				# '\n' is included in fname
-			print("  new image index = " + str(i))
+			print "  new image index = " + str(i)
 
 		elif key == ord('o'):						# set options
-			print("  Examining book sides (left, right, top, bottom) = ", \
-				[left_percent, right_percent, top_percent, bottom_percent])
-			print("  Color sum threshold = ", sum_threshold)
-			ans = input("  input new parameters (threshold, L, R, T, B): ")
+			print "  Examining book sides (left, right, top, bottom) = ", \
+				[left_percent, right_percent, top_percent, bottom_percent]
+			print "  Color sum threshold = ", sum_threshold
+			ans = raw_input("  input new parameters (threshold, L, R, T, B): ")
 			ans2 = ans.split(',')
 			sum_threshold = int(ans2[0])
 			left_percent = float(ans2[1])
@@ -181,7 +184,7 @@ while i < len(files):
 			img0 = cv2.resize(img1, (int(standard_width), int(standard_height)))
 			new_name = "3" + fname1[1:]			# add filename prefix with '1'
 			cv2.imwrite(new_name, img0)
-			print("  saved image: " + new_name)
+			print "  saved image: " + new_name
 			call(["beep", "-l30", "-f2500"])
 			break
 
