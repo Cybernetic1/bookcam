@@ -5,6 +5,7 @@
 ## ================================================================
 
 import sys
+import os
 import numpy as np
 from subprocess import call
 
@@ -21,100 +22,111 @@ cv2.resizeWindow('preview', (1080, 800))
 
 if len(sys.argv) == 1:
 	print("\nUsage:")
-	print("To crop one file: (default out_file = 'test.png')")
-	print("   crop image_file [out_file]")
-	print("\nDuring preview: press 'f' to record failure")
-	print("                        'd' to delete current file")
-	print("                        any other key to accept\n")
+	print("   crop [directory to move to]")
+	print("\nKeys:")
+	print("'n' -- next image")
+	print("'p' -- previous image")
+	print("space -- confirm crop image")
+	print("arrows -- resize frame")
+	print("'+' -- expand frame")
+	print("'-' -- shrink frame")
+	print("'*' -- double increment")
+	print("'/' -- half increment")
 	exit()
+else:
+	print("Changing dir:", sys.argv[1])
+	os.chdir(sys.argv[1])
 
 ## !!!!!!!!!!! Notice that right = 0 and left = 1 !!!!!!!!!!!
-
 # 	right left top bottom
-crop = [16, 16, 16, 16]
-inc = -1
+crop = [16, 16, 16, 16]			# “crop 入去” 的距离
+inc = 1
+i = 155
 
-fname = sys.argv[1]
-
-print("***** Processing: " + fname)
 print("  backspace = previous, d = delete, f = record failure, esc = skip rest")
 print("  arrows = shrink, shift arrows = expand, ctrl arrows = fast shrink")
 print("  any other key = accept")
 
+changed = False
+
+def loadImg():
+	global fname, img0, old_height, old_width
+	fname = "img" + str(i) + ".jpg"
+	print("***** Processing: " + fname)
+	img0 = cv2.imread(fname, 1)							# 1 for color
+	old_height, old_width, _ = img0.shape
+
+loadImg()
+
 while True:
 
-	img0 = cv2.imread(fname, 1)							# 1 for color
-	old_height, old_width, depth = img0.shape
-
-	# preview original image with red frame
-	# draw red frame (start point, end point, color, thickness)
-	start_point = (crop[1], crop[2])
-	end_point = (old_width - crop[0], old_height - crop[3])
-	cv2.rectangle(img0, start_point, end_point, (0,0,255), 2)
+	if changed:
+		loadImg()
+		# preview original image with red frame
+		# draw red frame (start point, end point, color, thickness)
+		start_point = (crop[1], crop[2])
+		end_point = (old_width - crop[0], old_height - crop[3])
+		cv2.rectangle(img0, start_point, end_point, (0,0,255), 2)
 	cv2.imshow('preview', img0)
 
 	# ask for key and possibly redraw red frame
 	key = cv2.waitKeyEx(0)
-	print('key =', key)
+	print("key =", key, "inc =", inc, " right/left/top/bottom = ", crop)
+	call(['play', '-n', '-q', 'synth', '0.03', 'sine', '1900'])
 
 	if key == 65363:								# right
 		crop[0] += inc
+		changed = True
 	elif key == 65361:								# left
 		crop[1] += inc
+		changed = True
 	elif key == 65362:								# top
 		crop[2] += inc
+		changed = True
 	elif key == 65364:								# bottom
 		crop[3] += inc
+		changed = True
 
-	# **** These key codes are no longer working
-	# elif key == 65363 + 262144:						# right
-		# crop[0] += 10
-	# elif key == 65361 + 262144:						# left
-		# crop[1] += 10
-	# elif key == 65362 + 262144:						# top
-		# crop[2] += 10
-	# elif key == 65364 + 262144:						# bottom
-		# crop[3] += 10
-
-	# elif key == 65363 + 65536:						# Right
-		# crop[0] -= 1
-	# elif key == 65361 + 65536:						# Left
-		# crop[1] -= 1
-	# elif key == 65362 + 65536:						# Top
-		# crop[2] -= 1
-	# elif key == 65364 + 65536:						# Bottom
-		# crop[3] -= 1
-
-	elif key == ord('=') or key == ord('+'):		# '+' = expand
-		inc = 1
-	elif key == ord('-'):							# '-' = shrink
+	elif key == ord('='):							# '+' = expand
 		inc = -1
+	elif key == ord('+'):							# '+' = expand
+		inc = -1
+	elif key == ord('-'):							# '-' = shrink
+		inc = 1
 	elif key == ord('*'):
 		inc *= 2
 	elif key == ord('/'):
-		inc /= 2
+		inc //= 2
 
 	elif key == ord('0'):							# '0' = full view
 		crop = [0, 0, 0, 0]
+		changed = True
 
-	elif key == ord('f'):							# record failure
+	elif key == ord('f'):							# record failure (* may not work)
 		f2.write(fname)
 		print("  failed: " + fname + '\n')
 		# delete file?
 		break
 
-	elif key == ord('d'):							# delete
-		os.remove(fname)
+	elif key == ord('d'):							# delete (* may not work)
+		# os.remove(fname)
 		print("  deleted: " + fname + '\n')
-		call(["beep", "-f 300"])
+		call(["beep"])
 		break
 
-	elif key == 65288:							# Backspace = go to previous image
-		i -= 2
-		fname = sys.argv[1]
-		print("  new image index = " + str(i))
+	elif key == ord('n'):							# next image
+		i += 1
+		loadImg()
 
-	elif key == ord('o'):						# set options
+	elif key == ord('p'):							# previous image
+		i -= 1
+		loadImg()
+
+	elif key == 65288:								# Backspace = go to previous image
+		i -= 2
+		loadImg()
+
+	elif key == ord('s'):							# set options (* may not work)
 		print("  Examining book sides (left, right, top, bottom) = ", \
 			[left_percent, right_percent, top_percent, bottom_percent])
 		print("  Color sum threshold = ", sum_threshold)
@@ -128,23 +140,18 @@ while True:
 		i -= 1										# remain at current index
 
 	elif key == 27 or key == ord('q'):				# quit
-		skip = True									# set flag to skip remainders
 		break
 
-	elif key < 256:									#accept
-		continue
+	elif key == 32:									# Space = accept crop image
 		# do the real cropping
+		img0 = cv2.imread(fname, 1)					# 1 for color
 		img1 = img0[crop[2] : old_height - crop[3], crop[1] : old_width - crop[0]]
 
 		# perhaps no need to resize?
 		# img0 = cv2.resize(img1, (int(standard_width), int(standard_height)))
-		new_name = "1" + fname
-		cv2.imwrite(new_name, img1)
-		print("  saved image: " + new_name)
-		call(["beep", "-f 800 -l 300"])
-		break
-
-	print("inc =", inc, " right/left/top/bottom = ", crop)
-	call(["beep", "-f 1300"])
+		# new_name = "1" + fname
+		cv2.imwrite(fname, img1)
+		print("  saved image: " + fname)
+		call(['play', '-n', '-q', 'synth', '0.1', 'sine', '256'])
 
 exit()
