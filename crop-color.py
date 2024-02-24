@@ -6,9 +6,35 @@
 
 import sys
 import os
+
+print("\nUsage:")
+print("   crop <directory to move to> [image index]")
+print("\n**** Do not change window focus, or arrow keys may fail.")
+print("\nKeys:")
+print("'n' -- next image")
+print("'p' -- previous image")
+print("space -- confirm crop image")
+print("arrows -- resize frame")
+print("'+' -- expand frame")
+print("'-' -- shrink frame")
+print("'*' -- double increment")
+print("'/' -- half increment")
+print("'q' -- quit")
+
+if len(sys.argv) == 1:
+	exit()
+else:
+	print("Changing dir:", sys.argv[1])
+	os.chdir(sys.argv[1])
+
+try:
+	i = int(sys.argv[2])
+except (IndexError, ValueError):
+	i = 1
+print("Image index =", i)
+
 import numpy as np
 from subprocess import call
-
 import cv2
 
 standard_height = 1600 #1430.0
@@ -20,38 +46,16 @@ print("Standard height = ", standard_height)
 cv2.namedWindow('preview', 0)
 cv2.resizeWindow('preview', (1080, 800))
 
-if len(sys.argv) == 1:
-	print("\nUsage:")
-	print("   crop [directory to move to]")
-	print("\nKeys:")
-	print("'n' -- next image")
-	print("'p' -- previous image")
-	print("space -- confirm crop image")
-	print("arrows -- resize frame")
-	print("'+' -- expand frame")
-	print("'-' -- shrink frame")
-	print("'*' -- double increment")
-	print("'/' -- half increment")
-	exit()
-else:
-	print("Changing dir:", sys.argv[1])
-	os.chdir(sys.argv[1])
-
 ## !!!!!!!!!!! Notice that right = 0 and left = 1 !!!!!!!!!!!
 # 	right left top bottom
 crop = [16, 16, 16, 16]			# “crop 入去” 的距离
 inc = 1
-i = 155
-
-print("  backspace = previous, d = delete, f = record failure, esc = skip rest")
-print("  arrows = shrink, shift arrows = expand, ctrl arrows = fast shrink")
-print("  any other key = accept")
 
 changed = False
 
 def loadImg():
 	global fname, img0, old_height, old_width
-	fname = "img" + str(i) + ".jpg"
+	fname = "img" + "{:03d}".format(i) + ".jpg"
 	print("***** Processing: " + fname)
 	img0 = cv2.imread(fname, 1)							# 1 for color
 	old_height, old_width, _ = img0.shape
@@ -72,7 +76,7 @@ while True:
 	# ask for key and possibly redraw red frame
 	key = cv2.waitKeyEx(0)
 	print("key =", key, "inc =", inc, " right/left/top/bottom = ", crop)
-	call(['play', '-n', '-q', 'synth', '0.03', 'sine', '1900'])
+	call(['play', '-n', '-q', 'synth', '0.05', 'sine', '1700'])
 
 	if key == 65363:								# right
 		crop[0] += inc
@@ -152,6 +156,6 @@ while True:
 		# new_name = "1" + fname
 		cv2.imwrite(fname, img1)
 		print("  saved image: " + fname)
-		call(['play', '-n', '-q', 'synth', '0.1', 'sine', '256'])
+		call(['play', '-n', '-q', 'synth', '0.2', 'sine', '400'])
 
 exit()
