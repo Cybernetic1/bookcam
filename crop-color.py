@@ -4,6 +4,10 @@
 ## Automatically crop book margins
 ## ================================================================
 
+# TO-DO:
+# * after crop image, image suddenly rescaled bigger, perhaps should
+#	retain old width and height?
+
 import sys
 import os
 
@@ -99,10 +103,12 @@ while True:
 		inc = 1
 	elif key == ord('*'):
 		inc *= 2
+	elif key == ord('0'):							# '0' = '*'
+		inc *= 2
 	elif key == ord('/'):
 		inc //= 2
 
-	elif key == ord('0'):							# '0' = full view
+	elif key == ord('1'):							# '0' = full view
 		crop = [0, 0, 0, 0]
 		changed = True
 

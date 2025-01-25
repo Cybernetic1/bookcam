@@ -60,6 +60,9 @@ def loadImg():
 loadImg()
 mid_point = old_width // 2
 
+Lmargin = 50
+Rmargin = 50
+
 while True:
 
 	if changed:
@@ -67,7 +70,8 @@ while True:
 		# preview original image with red frame
 		# draw red frame (start point, end point, color, thickness)
 		# cv2.rectangle(img0, start_point, end_point, (0,0,255), 2)
-		cv2.line(img0, (mid_point, 0), (mid_point, old_height), (0,0,255), 2)
+	cv2.rectangle(img0, (mid_point - Lmargin, 0), (mid_point + Rmargin, old_height), (255,255,255), -1)
+	cv2.rectangle(img0, (mid_point - Lmargin, 0), (mid_point + Rmargin, old_height), (0,0,255), 2)
 	cv2.imshow('preview', img0)
 
 	# ask for key and possibly redraw red frame
@@ -79,6 +83,19 @@ while True:
 		changed = True
 	elif key == 65361:								# left
 		mid_point -= inc
+		changed = True
+
+	elif key == ord('['):
+		Lmargin += inc
+		changed = True
+	elif key == ord(']'):
+		Lmargin -= inc
+		changed = True
+	elif key == ord(','):
+		Rmargin -= inc
+		changed = True
+	elif key == ord('.'):
+		Rmargin += inc
 		changed = True
 
 	elif key == ord('*'):
@@ -141,6 +158,7 @@ while True:
 	elif key == 32:									# Space = accept split page
 		# do the real cropping
 		img0 = cv2.imread(fname, 1)					# 1 for color
+		cv2.rectangle(img0, (mid_point - Lmargin, 0), (mid_point + Rmargin, old_height), (255,255,255), -1)
 		imgL = img0[0 : old_height, 0 : mid_point]
 		imgR = img0[0 : old_height, mid_point : old_width]
 		# img1 = img0[crop[2] : old_height - crop[3], crop[1] : old_width - crop[0]]
