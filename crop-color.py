@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-## Automatically crop book margins
+## Automatically crop book margins (NEWEST version)
 ## ================================================================
 
 # TO-DO:
@@ -59,7 +59,7 @@ changed = False
 
 def loadImg():
 	global fname, img0, old_height, old_width
-	fname = "img" + "{:03d}".format(i) + ".jpg"
+	fname = "img" + "{:03d}".format(i) + ".png"
 	print("***** Processing: " + fname)
 	img0 = cv2.imread(fname, 1)							# 1 for color
 	old_height, old_width, _ = img0.shape

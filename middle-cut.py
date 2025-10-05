@@ -4,6 +4,8 @@
 ## Automatically cut in the mid-line
 ## ================================================================
 
+# * Cannot control width of middle area, pls manually set "margins" below
+
 import sys
 import os
 
@@ -52,7 +54,7 @@ changed = False
 
 def loadImg():
 	global fname, img0, old_height, old_width
-	fname = "img" + "{:03d}".format(i) + ".jpg"
+	fname = "img" + "{:03d}".format(i) + ".png"
 	print("***** Processing: " + fname)
 	img0 = cv2.imread(fname, 1)							# 1 for color
 	old_height, old_width, _ = img0.shape
@@ -60,8 +62,8 @@ def loadImg():
 loadImg()
 mid_point = old_width // 2
 
-Lmargin = 50
-Rmargin = 50
+Lmargin = 25
+Rmargin = 25
 
 while True:
 
@@ -166,8 +168,10 @@ while True:
 		# perhaps no need to resize?
 		# img0 = cv2.resize(img1, (int(standard_width), int(standard_height)))
 		# new_name = "1" + fname
-		cv2.imwrite(fname + '-L', imgL)
-		cv2.imwrite(fname + '-R', imgR)
+		fnameL = "img" + "{:03d}".format(i) + "-L.png"
+		fnameR = "img" + "{:03d}".format(i) + "-R.png"
+		cv2.imwrite(fnameL, imgL)
+		cv2.imwrite(fnameR, imgR)
 		print("  saved images: " + fname + "-L/R")
 		call(['play', '-n', '-q', 'synth', '0.2', 'sine', '400'])
 

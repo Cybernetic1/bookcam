@@ -1,4 +1,4 @@
-****** How to use imageJ macro to batch "subtract background" **********
+****** How to use imageJ macro to batch "subtract background"
 
 ****** find & replace in Geany (reference only, no use)
 Replace:
@@ -10,6 +10,7 @@ With:
 run("Input/Output...", "jpeg=60 gif=-1 file=.txt use_file copy_row save_column save_row");
 
 ****** to save single file as JPEG:
+* this line creates a imagej batch script as text file:
 sed s/0000X/0004B/ to-jpeg.ijm > t3.ijm
 imagej -b t3.ijm
 
@@ -17,16 +18,13 @@ imagej -b t3.ijm
 for f in *A.png; do mogrify -rotate "+90" "$f"; done
 for f in *B.png; do mogrify -rotate "-90" "$f"; done
 
-******************************************************
-******************************************************
-
 *********************** subtract background, increase contrast
 ls -1 img*.png > t1
 sed -f sed-new t1 > t2.ijm
 imagej -b t2.ijm
 
 *********************** deskew
-./deskwe.sh
+./deskew.sh
 ./files
 
 *********************** crop images
