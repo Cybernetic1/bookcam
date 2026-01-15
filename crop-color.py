@@ -6,7 +6,7 @@
 
 # TO-DO:
 # * after crop image, image suddenly rescaled bigger, perhaps should
-#	retain old width and height?
+#	retain old width and height? (maybe DPI issue also)
 
 import sys
 import os
@@ -59,7 +59,7 @@ changed = False
 
 def loadImg():
 	global fname, img0, old_height, old_width
-	fname = "img" + "{:03d}".format(i) + ".png"
+	fname = "img" + "{:03d}".format(i) + ".jpg"
 	print("***** Processing: " + fname)
 	img0 = cv2.imread(fname, 1)							# 1 for color
 	old_height, old_width, _ = img0.shape

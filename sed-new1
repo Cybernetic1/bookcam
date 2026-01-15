@@ -1,0 +1,11 @@
+s/.jpg//      # remove extension
+# open("?img0001.jpg");
+# print("\nprocessing: " + "?img0001A.jpg");
+# run("8-bit Color", "number=[2-256]");
+# run("Subtract Background...", "rolling=50 light");
+# setMinAndMax(120, 235);
+# run("Apply LUT");
+# saveAs("JPG", "?img0001A.jpg");
+# close();
+s/img[0-9]*/open\(\"&.jpg\"\);\nprint\(\"\\nprocessing: \" + \"&.jpg\"\);\nrun\(\"RGB Color\"\);\nrun\(\"Subtract Background...\", \"rolling=100 light\"\);\nrun\(\"Enhance Contrast\", \"saturated=0.75\"\);\nsaveAs\(\"JPG\", \"4&.jpg\"\);\nclose\(\);/
+# s/img[0-9]*/open\(\"&.jpg\"\);\nprint\(\"\\nprocessing: \" + \"&.jpg\"\);\nrun\(\"8-bit Color\", \"number=64\"\);\nrun\(\"Subtract Background...\", \"rolling=50 light\"\);\nsetMinAndMax\(120,235\);\nrun\(\"Apply LUT\"\);\nsaveAs\(\"JPG\", \"4&.jpg\"\);\nclose\(\);/

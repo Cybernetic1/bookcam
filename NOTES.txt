@@ -20,7 +20,7 @@ for f in *B.png; do mogrify -rotate "-90" "$f"; done
 
 *********************** subtract background, increase contrast
 ls -1 img*.png > t1
-sed -f sed-new t1 > t2.ijm
+sed -f sed-new1 t1 > t2.ijm
 imagej -b t2.ijm
 
 *********************** deskew

@@ -54,7 +54,7 @@ changed = False
 
 def loadImg():
 	global fname, img0, old_height, old_width
-	fname = "img" + "{:03d}".format(i) + ".png"
+	fname = "img" + "{:03d}".format(i) + ".jpg"
 	print("***** Processing: " + fname)
 	img0 = cv2.imread(fname, 1)							# 1 for color
 	old_height, old_width, _ = img0.shape
@@ -168,8 +168,8 @@ while True:
 		# perhaps no need to resize?
 		# img0 = cv2.resize(img1, (int(standard_width), int(standard_height)))
 		# new_name = "1" + fname
-		fnameL = "img" + "{:03d}".format(i) + "-L.png"
-		fnameR = "img" + "{:03d}".format(i) + "-R.png"
+		fnameL = "img" + "{:03d}".format(i) + "-L.jpg"
+		fnameR = "img" + "{:03d}".format(i) + "-R.jpg"
 		cv2.imwrite(fnameL, imgL)
 		cv2.imwrite(fnameR, imgR)
 		print("  saved images: " + fname + "-L/R")
